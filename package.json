@@ -1,0 +1,28 @@
+{
+  "name": "learn-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node  --project ./tsconfig2.json server.ts",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@zeit/next-less": "^1.0.1",
+    "antd": "^3.23.4",
+    "koa": "^2.8.1",
+    "koa-router": "^7.4.0",
+    "less": "^3.10.3",
+    "next": "9.0.6",
+    "react": "16.9.0",
+    "react-dom": "16.9.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.49",
+    "@types/node": "^12.7.7",
+    "@types/react": "^16.9.3",
+    "babel-plugin-import": "^1.12.2",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.3"
+  }
+}
