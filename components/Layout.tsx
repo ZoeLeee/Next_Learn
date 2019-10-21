@@ -16,6 +16,9 @@ export default ({ children }) => {
             query: { id: 2 }
           }, "/b/2")
         }}>toB</Button>
+        <Link href="/c">
+          <Button>toC</Button>
+        </Link>
       </header>
       {children}
     </>
