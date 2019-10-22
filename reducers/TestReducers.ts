@@ -1,30 +1,25 @@
 import { combineReducers } from "redux";
 
-export function add(state={count:0},action){
-  switch (action.type){
+export function add(state = 0, action): number {
+  switch (action.type) {
     case "ADD":
-      return {
-        count:action.count
-      }
+      return action.count;
     default:
       return state;
   }
 }
 
 
-export function rename(state={name:"Zoe"},action){
-  switch (action.type){
+export function rename(state = "Zoe", action): string {
+  switch (action.type) {
     case "RENAME":
-      return {
-        ...state,
-        count:action.name
-      }
+      return action.name
     default:
       return state;
   }
 }
 
 
-export const AllReduces= combineReducers({
-  add,rename
+export const AllReduces = combineReducers({
+  count: add, name: rename
 });
