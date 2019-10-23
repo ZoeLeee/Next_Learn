@@ -5,10 +5,10 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { AllReduces } from '../reducers/TestReducers';
 import { Provider } from 'react-redux';
-
+import { composeWithDevTools } from 'redux-devtools-extension';
 import TestHoc from '../libs/withRedux';
 
-let store = createStore(AllReduces,{count:0,name:"Zoe"}, applyMiddleware(thunk))
+let store = createStore(AllReduces,{count:0,name:"Zoe"}, composeWithDevTools(applyMiddleware(thunk)))
 
  class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
