@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-// import { IInitState } from './_App';
 import { Dispatch } from 'redux';
 import { add, rename } from './../actions/test';
+import { IInitState } from '../reducers/TestReducers';
 
 
 const CC = ({ count,name, add,rename }) => {
@@ -13,19 +13,17 @@ const CC = ({ count,name, add,rename }) => {
     </div>
   )
 }
-// export default connect(
-//   function mapStatetoProps(state: IInitState) {
-//     return {
-//       count: state.count,
-//       name:state.name
-//     }
-// },
-//   function mapDispatchtoProps(dispath: Dispatch) {
-//     return {
-//       add: (n: number) => dispath(add(n)),
-//       rename:(s:string)=>dispath(rename(s)),
-//     }
-//   }
-// )(CC);
-
-export default  CC;
+export default connect(
+  function mapStatetoProps(state: IInitState) {
+    return {
+      count: state.count,
+      name:state.name
+    }
+},
+  function mapDispatchtoProps(dispath: Dispatch) {
+    return {
+      add: (n: number) => dispath(add(n)),
+      rename:(s:string)=>dispath(rename(s)),
+    }
+  }
+)(CC);

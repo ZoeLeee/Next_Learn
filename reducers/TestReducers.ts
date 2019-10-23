@@ -1,5 +1,10 @@
 import { combineReducers } from "redux";
 
+export interface IInitState{
+  name:string;
+  count:number;
+}
+
 export function add(state = 0, action): number {
   switch (action.type) {
     case "ADD":

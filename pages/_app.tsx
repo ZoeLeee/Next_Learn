@@ -6,9 +6,11 @@ import thunk from 'redux-thunk';
 import { AllReduces } from '../reducers/TestReducers';
 import { Provider } from 'react-redux';
 
-let store = createStore(AllReduces, applyMiddleware(thunk))
+import TestHoc from '../libs/withRedux';
 
-export default class MyApp extends App {
+let store = createStore(AllReduces,{count:0,name:"Zoe"}, applyMiddleware(thunk))
+
+ class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
     let pageProps = {}
 
@@ -31,3 +33,5 @@ export default class MyApp extends App {
     )
   }
 }
+
+export default  TestHoc(MyApp)
