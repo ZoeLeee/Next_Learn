@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { add, rename } from './../actions/test';
 import { IInitState } from '../reducers/TestReducers';
+import { IAppProps } from './_app';
 
 
 const CC = ({ count,name, add,rename }) => {
@@ -13,6 +14,12 @@ const CC = ({ count,name, add,rename }) => {
     </div>
   )
 }
+
+CC.getInitialProps=async ({reduxStore}:IAppProps)=>{
+    reduxStore.dispatch(add(3))
+    return {};
+}
+
 export default connect(
   function mapStatetoProps(state: IInitState) {
     return {

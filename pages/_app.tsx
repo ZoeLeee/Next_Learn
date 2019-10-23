@@ -1,31 +1,30 @@
 import App, { Container } from 'next/app'
 import 'antd/dist/antd.less'
 import Layout from '../components/Layout'
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { AllReduces } from '../reducers/TestReducers';
 import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import TestHoc from '../libs/withRedux';
+import WithRouter from '../libs/withRedux';
+import { Store } from 'redux';
+import { AppContextType } from 'next/dist/next-server/lib/utils';
 
-let store = createStore(AllReduces,{count:0,name:"Zoe"}, composeWithDevTools(applyMiddleware(thunk)))
 
- class MyApp extends App {
-  static async getInitialProps({ Component, router, ctx }) {
+export interface IAppProps extends AppContextType{
+  reduxStore:Store;
+  pageProps:any;
+}
+
+ class MyApp extends App<IAppProps> {
+  static async getInitialProps(ctx) {
     let pageProps = {}
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
-      console.log('pageProps: ', pageProps);
+    if (ctx.Component.getInitialProps) {
+      pageProps = await ctx.Component.getInitialProps(ctx)
     }
-
     return { pageProps }
   }
 
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps,reduxStore } = this.props
     return (
-      <Provider store={store}>
+      <Provider store={reduxStore}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
@@ -34,4 +33,4 @@ let store = createStore(AllReduces,{count:0,name:"Zoe"}, composeWithDevTools(app
   }
 }
 
-export default  TestHoc(MyApp)
+export default  WithRouter(MyApp)
