@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { add, rename } from './../actions/test';
+import { add, rename } from '../actions/test';
 import { IInitState } from '../reducers/TestReducers';
 import { IAppProps } from './_app';
 

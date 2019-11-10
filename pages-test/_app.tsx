@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import WithRouter from '../libs/withRedux';
 import { Store } from 'redux';
 import { AppContextType } from 'next/dist/next-server/lib/utils';
-import '../style.less';
+
 
 export interface IAppProps extends AppContextType{
   reduxStore:Store;

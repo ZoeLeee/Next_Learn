@@ -2,7 +2,7 @@ import React from 'react';
 import { initStore } from './../store/store';
 import { IInitState } from './../reducers/TestReducers';
 import { Store } from 'redux';
-import { IAppProps } from '../pages/_app';
+import { IAppProps } from '../pages-test/_app';
 
 const isServer = typeof window === 'undefined';
 
