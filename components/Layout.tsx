@@ -28,7 +28,7 @@ export default ({ children }) => {
         </div>
       </Header>
       <Content>
-        <Container>
+        <Container render={<div />}>
           {children}
         </Container>
       </Content>
