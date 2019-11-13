@@ -1,9 +1,11 @@
-import React from 'react'
-import { Button, Icon, Input, Avatar } from 'antd'
-import Link from 'next/link';
-import Router from 'next/router';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Avatar, Dropdown, Icon, Input, Layout, Menu } from 'antd';
+import React, { useCallback } from 'react';
+import { connect } from 'react-redux';
+import config from '../config';
+import { loginOut } from './../actions/index';
+import { IInitState } from './../reducers/index';
 import { Container } from './Container';
+import { withRouter } from 'next/router';
 
 const { Header, Content, Footer } = Layout;
 
@@ -13,7 +15,23 @@ const IconStyle: React.CSSProperties = {
 }
 
 
-export default ({ children }) => {
+const MyLayout = ({ children, userInfo ,loginOut,router}) => {
+
+  const handleLoginOut=useCallback(
+    () => {
+      loginOut();
+    },[loginOut])
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <span onClick={handleLoginOut}>
+          登出
+        </span>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <Layout >
       <Header>
@@ -23,7 +41,17 @@ export default ({ children }) => {
             <Input.Search placeholder="输入关键词" />
           </div>
           <div>
-            <Avatar />
+            {
+              userInfo&&userInfo.id ?
+                <Dropdown overlay={menu}>
+                  <span>
+                    <Avatar src={userInfo.avatar_url} style={{ cursor: "pointer" }} />
+                  </span>
+                </Dropdown>
+                : <a href={`/prepare-auth?url=${router.asPath}`}>
+                  <Avatar />
+                </a>
+            }
           </div>
         </div>
       </Header>
@@ -52,3 +80,16 @@ export default ({ children }) => {
     </Layout>
   )
 }
+
+export default connect(
+  function mapStateToProps(state: IInitState) {
+    return {
+      userInfo: state.userInfo
+    }
+  },
+  function mapDispatchToProps(dispatch){
+    return {
+      loginOut:()=>dispatch(loginOut())
+    }
+  }
+  )(withRouter(MyLayout));

@@ -17,7 +17,8 @@ const myConfig = withLess(
     /**在2端渲染都可获取到的配置 */
     publicRuntimeConfig:{
       GITHUB_OAUTH_URL,
-      OAUTH_URL:`${GITHUB_OAUTH_URL}?client_id=${config.github.client_id}&scope=${SCOPE}`
+      OAUTH_URL:`${config.github.githubOauthUrl}
+      ?client_id=${config.github.client_id}&scope=${SCOPE}`
     }
   }
 );

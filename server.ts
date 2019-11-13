@@ -56,7 +56,6 @@ app.prepare().then(() => {
 
   router.get("/api/user", async (ctx, next) => {
     const user = ctx.session.userInfo;
-    console.log('user: ');
     if (user) {
       ctx.status = 200;
       ctx.set('Content-Type', 'application/json');
@@ -72,6 +71,8 @@ app.prepare().then(() => {
   server.use(router.routes());
 
   server.use(async (ctx, next) => {
+    if(ctx.session)
+    ctx.req["userInfo"]= ctx.session.userInfo;
     await handle(ctx.req, ctx.res);
     ctx.respond = false;
   });

@@ -32,15 +32,27 @@ export default function (server: Koa) {
           }
         });
         if(userRes.status===200){
-          console.log(userRes.data);
           ctx.session.userInfo=userRes.data;
         }
-        ctx.redirect('/');
+        ctx.redirect((ctx.session&&ctx.session.beforeUrl)||'/');
       }
       else {
         ctx.body = `请求失败:${result.data}`;
       }
 
+    }
+    else if(ctx.path==="/loginOut"){
+      ctx.session=null;
+      ctx.body="login out";
+    }
+    else
+      await next();
+  });
+  server.use(async (ctx, next) => {
+    if(ctx.path==="/prepare-auth"&&ctx.method==="GET"){
+      const {url}=ctx.query;
+      ctx.session.beforeUrl=url;
+      ctx.redirect(config.github.githubOauthUrl);
     }
     else
       await next();

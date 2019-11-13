@@ -1,4 +1,4 @@
-import App, { Container } from 'next/app'
+import App from 'next/app'
 import 'antd/dist/antd.less'
 import Layout from '../components/Layout'
 import { Provider } from 'react-redux';

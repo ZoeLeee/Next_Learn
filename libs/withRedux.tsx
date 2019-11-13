@@ -1,14 +1,14 @@
 import React from 'react';
 import { initStore } from './../store/store';
-import { IInitState } from './../reducers/TestReducers';
 import { Store } from 'redux';
 import { IAppProps } from '../pages-test/_app';
+import { IInitState } from '../reducers';
 
 const isServer = typeof window === 'undefined';
 
 const _NEXT_REDUX_STORE_ = '_NEXT_REDUX_STORE_';
 
-function getOrCreateStore(initState: IInitState = { count: 0, name: "Zoe" }): Store {
+function getOrCreateStore(initState: IInitState = { userInfo: {} }): Store {
   if (isServer)
     return initStore(initState);
 
@@ -20,12 +20,18 @@ function getOrCreateStore(initState: IInitState = { count: 0, name: "Zoe" }): St
 
 
 export default (Com) => {
-
   class WithRedux extends React.Component<IAppProps>{
     private _reduxStore: Store;
-    static async getInitialProps(ctx:IAppProps) {
-      const store = getOrCreateStore();
-      ctx.reduxStore=store;
+    static async getInitialProps(ctx: IAppProps) {
+      let store: Store;
+
+      if (isServer&&ctx.ctx.req["userInfo"]) {
+          store = getOrCreateStore({ userInfo: ctx.ctx.req["userInfo"] });
+      }
+      else
+        store = getOrCreateStore();
+
+      ctx.reduxStore = store;
       let appProps = {};
       if (Com.getInitialProps)
         appProps = await Com.getInitialProps(ctx);
