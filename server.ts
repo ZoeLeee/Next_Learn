@@ -36,13 +36,16 @@ app.prepare().then(() => {
   auth(server);
 
   let router = new Router();
-  router.get('/a/:id', async ctx => {
+  router.get('/a/:id', async(ctx,next) => {
+    // if (ctx.session)
+    //   ctx.req["userInfo"] = ctx.session.userInfo;
     const id = ctx.params.id
     await handle(ctx.req, ctx.res, {
       pathname: '/a',
       query: { id },
     })
-    ctx.respond = false
+    // ctx.respond = false;
+    await next();
   });
   router.get("/b/:id", async (ctx, next) => {
     let id = ctx.params.id;
@@ -53,26 +56,11 @@ app.prepare().then(() => {
     ctx.respond = false;
   });
 
-
-  router.get("/api/user", async (ctx, next) => {
-    const user = ctx.session.userInfo;
-    if (user) {
-      ctx.status = 200;
-      ctx.set('Content-Type', 'application/json');
-      ctx.body = user;
-    }
-    else {
-      ctx.status = 401;
-      ctx.body = "未登录";
-    }
-  });
-
-
   server.use(router.routes());
 
   server.use(async (ctx, next) => {
-    if(ctx.session)
-    ctx.req["userInfo"]= ctx.session.userInfo;
+    if (ctx.session)
+      ctx.req["userInfo"] = ctx.session.userInfo;
     await handle(ctx.req, ctx.res);
     ctx.respond = false;
   });

@@ -25,8 +25,8 @@ export default (Com) => {
     static async getInitialProps(ctx: IAppProps) {
       let store: Store;
 
-      if (isServer&&ctx.ctx.req["userInfo"]) {
-          store = getOrCreateStore({ userInfo: ctx.ctx.req["userInfo"] });
+      if (isServer && ctx.ctx.req["userInfo"]) {
+        store = getOrCreateStore({ userInfo: ctx.ctx.req["userInfo"] });
       }
       else
         store = getOrCreateStore();
@@ -35,7 +35,6 @@ export default (Com) => {
       let appProps = {};
       if (Com.getInitialProps)
         appProps = await Com.getInitialProps(ctx);
-
       return {
         ...appProps,
         initState: store.getState()
