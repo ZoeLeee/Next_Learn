@@ -1,10 +1,13 @@
+import Redis from 'ioredis';
 import Koa from 'koa';
 import Router from 'koa-router';
-import next from 'next';
-import Redis from 'ioredis';
-import { RedisStore } from './utils/RedisStore';
 import session from 'koa-session';
+import next from 'next';
+import koaBody from 'koa-body';
+import api from './server/api';
 import auth from './server/auth';
+import { RedisStore } from './utils/RedisStore';
+
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -30,22 +33,21 @@ app.prepare().then(() => {
     store
   };
 
+  server.use(koaBody());
   server.use(session(CONFIG, server));
-
   //出来github登陆
   auth(server);
-
+  api(server);
   let router = new Router();
-  router.get('/a/:id', async(ctx,next) => {
-    // if (ctx.session)
-    //   ctx.req["userInfo"] = ctx.session.userInfo;
+  router.get('/a/:id', async (ctx, next) => {
+    if (ctx.session)
+      ctx.req["userInfo"] = ctx.session.userInfo;
     const id = ctx.params.id
     await handle(ctx.req, ctx.res, {
       pathname: '/a',
       query: { id },
     })
-    // ctx.respond = false;
-    await next();
+    ctx.respond = false;
   });
   router.get("/b/:id", async (ctx, next) => {
     let id = ctx.params.id;

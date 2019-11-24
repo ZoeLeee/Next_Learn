@@ -1,5 +1,5 @@
 import { Avatar, Dropdown, Icon, Input, Layout, Menu } from 'antd';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { connect } from 'react-redux';
 import config from '../config';
 import { loginOut } from './../actions/index';
@@ -15,12 +15,12 @@ const IconStyle: React.CSSProperties = {
 }
 
 
-const MyLayout = ({ children, userInfo ,loginOut,router}) => {
+const MyLayout = ({ children, userInfo, loginOut, router }) => {
 
-  const handleLoginOut=useCallback(
+  const handleLoginOut = useCallback(
     () => {
       loginOut();
-    },[loginOut])
+    }, [loginOut])
 
   const menu = (
     <Menu>
@@ -31,6 +31,11 @@ const MyLayout = ({ children, userInfo ,loginOut,router}) => {
       </Menu.Item>
     </Menu>
   );
+  const [searchStr, setSearchStr] = useState()
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchStr(e.target.value);
+    router.push(`/search?q=${e.target.value}`)
+  }, [searchStr,setSearchStr]);
 
   return (
     <Layout >
@@ -38,11 +43,14 @@ const MyLayout = ({ children, userInfo ,loginOut,router}) => {
         <div className="flex-between">
           <div className="logo flex">
             <Icon type="github" style={IconStyle} />
-            <Input.Search placeholder="输入关键词" />
+            <Input.Search
+            value={searchStr}
+              onChange={handleSearch}
+              placeholder="输入关键词" />
           </div>
           <div>
             {
-              userInfo&&userInfo.id ?
+              userInfo && userInfo.id ?
                 <Dropdown overlay={menu}>
                   <span>
                     <Avatar src={userInfo.avatar_url} style={{ cursor: "pointer" }} />
@@ -87,9 +95,9 @@ export default connect(
       userInfo: state.userInfo
     }
   },
-  function mapDispatchToProps(dispatch){
+  function mapDispatchToProps(dispatch) {
     return {
-      loginOut:()=>dispatch(loginOut())
+      loginOut: () => dispatch(loginOut())
     }
   }
-  )(withRouter(MyLayout));
+)(withRouter(MyLayout));

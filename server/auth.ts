@@ -12,32 +12,35 @@ export default function (server: Koa) {
         ctx.body = "code not exit";
         return;
       }
-      const result: AxiosResponse = await axios({
-        method: 'post',
-        url: TokenURL,
-        data: {
-          client_id, client_secret, code
-        },
-        headers: {
-          Accept: "application/json"
-        }
-      });
-      if (result.status === 200&&(result.data&&!result.data.error)) {
-        ctx.session.githubAuth = result.data;
-        const {access_token,token_type}=result.data;
-        const userRes=await axios({
-          url:"https://api.github.com/user",
-          headers:{
-            'Authorization':`${token_type} ${access_token}`
+      try{
+        const result: AxiosResponse = await axios({
+          method: 'POST',
+          url: TokenURL,
+          data: {
+            code,
+            client_id, 
+            client_secret,
+            grant_type:"authorization_code",
+            redirect_uri:"http://localhost:3000/auth"
           }
         });
-        if(userRes.status===200){
-          ctx.session.userInfo=userRes.data;
+        if (result.status === 200&&(result.data&&!result.data.error)) {
+          ctx.session.githubAuth = result.data;
+          const {access_token,token_type}=result.data;
+          const userRes=await axios({
+            url:`https://gitee.com/api/v5/user?access_token=${access_token}`,
+          });
+          if(userRes.status===200){
+            ctx.session.userInfo=userRes.data;
+          }
+          ctx.redirect((ctx.session&&ctx.session.beforeUrl)||'/');
         }
-        ctx.redirect((ctx.session&&ctx.session.beforeUrl)||'/');
+        else {
+          ctx.body = `请求失败:${result.data}`;
+        }
       }
-      else {
-        ctx.body = `请求失败:${result.data}`;
+      catch(err){
+        console.log(err);
       }
 
     }

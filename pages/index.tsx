@@ -3,10 +3,13 @@ import React, { useEffect } from 'react'
 import getConfig from 'next/config';
 import Link from 'next/link';
 import { Button } from 'antd';
+import { req } from '../libs/Request';
+import Koa  from 'koa';
+import { IAppProps } from './../pages-test/_app';
 
 const { publicRuntimeConfig } = getConfig();
 
-export default () => {
+const Index= () => {
   return (
     <div>
       Index
@@ -19,3 +22,4 @@ export default () => {
   )
 }
 
+export default Index;
