@@ -11,8 +11,7 @@ const SearchPage = ({ router }: { router: Router }) => {
 SearchPage.getInitialProps = async ({ ctx, router }: IAppProps) => {
   let data = await req({
     url: `search/repositories?q=${router.query.q}&page=1&per_page=20&order=desc`,
-    data:{test:"haha"}
-  }, ctx.req, ctx.res);
+  }, ctx.req);
   return {router}
 }
 

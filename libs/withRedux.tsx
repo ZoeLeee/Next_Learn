@@ -24,9 +24,9 @@ export default (Com) => {
     private _reduxStore: Store;
     static async getInitialProps(ctx: IAppProps) {
       let store: Store;
-
-      if (isServer && ctx.ctx.req["userInfo"]) {
-        store = getOrCreateStore({ userInfo: ctx.ctx.req["userInfo"] });
+      const {session} =ctx.ctx.req as any;
+      if (isServer && session) {
+        store = getOrCreateStore({ userInfo: session.userInfo});
       }
       else
         store = getOrCreateStore();

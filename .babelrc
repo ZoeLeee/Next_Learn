@@ -17,6 +17,7 @@
         "displayName": true, 
         "preprocess": false 
       }
-    ]
+    ],
+    "@babel/plugin-proposal-optional-chaining"
   ]
 }

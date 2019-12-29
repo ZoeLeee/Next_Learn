@@ -62,7 +62,7 @@ app.prepare().then(() => {
 
   server.use(async (ctx, next) => {
     if (ctx.session)
-      ctx.req["userInfo"] = ctx.session.userInfo;
+      ctx.req["session"] = ctx.session;
     await handle(ctx.req, ctx.res);
     ctx.respond = false;
   });

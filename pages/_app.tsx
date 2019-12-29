@@ -8,11 +8,11 @@ import { AppContextType } from 'next/dist/next-server/lib/utils';
 import '../style.less';
 import PageLoading from '../components/PageLoading';
 import {  Router } from 'next/router';
-import Axios from 'axios';
 
 export interface IAppProps extends AppContextType {
   reduxStore: Store;
   pageProps: any;
+  [key:string]:any;
 }
 
 class MyApp extends App<IAppProps, {router:Router}, { isLoading: boolean }> {

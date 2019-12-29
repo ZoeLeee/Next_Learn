@@ -35,33 +35,36 @@ const MyLayout = ({ children, userInfo, loginOut, router }) => {
   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchStr(e.target.value);
     router.push(`/search?q=${e.target.value}`)
-  }, [searchStr,setSearchStr]);
+  }, [searchStr, setSearchStr]);
 
   return (
     <Layout >
+
       <Header>
-        <div className="flex-between">
-          <div className="logo flex">
-            <Icon type="github" style={IconStyle} />
-            <Input.Search
-            value={searchStr}
-              onChange={handleSearch}
-              placeholder="输入关键词" />
-          </div>
-          <div>
-            {
-              userInfo && userInfo.id ?
-                <Dropdown overlay={menu}>
-                  <span>
-                    <Avatar src={userInfo.avatar_url} style={{ cursor: "pointer" }} />
-                  </span>
-                </Dropdown>
-                : <a href={`/prepare-auth?url=${router.asPath}`}>
-                  <Avatar />
-                </a>
-            }
-          </div>
-        </div>
+        <Container render={<div className="flex-between"></div>}>
+          <>
+            <div className="logo flex">
+              <Icon type="github" style={IconStyle} />
+              <Input.Search
+                value={searchStr}
+                onChange={handleSearch}
+                placeholder="输入关键词" />
+            </div>
+            <div>
+              {
+                userInfo && userInfo.id ?
+                  <Dropdown overlay={menu}>
+                    <span>
+                      <Avatar src={userInfo.avatar_url} style={{ cursor: "pointer" }} />
+                    </span>
+                  </Dropdown>
+                  : <a href={`/prepare-auth?url=${router.asPath}`}>
+                    <Avatar />
+                  </a>
+              }
+            </div>
+          </>
+        </Container>
       </Header>
       <Content>
         <Container render={<div />}>
@@ -78,11 +81,25 @@ const MyLayout = ({ children, userInfo, loginOut, router }) => {
         }
       `}</style>
       <style global jsx>{`
+        html{
+          overflow-y:scroll;
+          overflow-x:hidden;
+        }
+        body{
+          width: 100vw;
+          overflow: hidden;
+        }
         #__next{
           height:100%;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        #__next>section{
+          position: absolute;
+          width:100%;
         }
         .ant-layout{
-          height:100%;
+          min-height:100%;
         }
       `}</style>
     </Layout>

@@ -10,6 +10,7 @@ import { AppContextType } from 'next/dist/next-server/lib/utils';
 export interface IAppProps extends AppContextType{
   reduxStore:Store;
   pageProps:any;
+  [key:string]:any;
 }
 
  class MyApp extends App<IAppProps> {
