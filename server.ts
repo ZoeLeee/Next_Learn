@@ -65,7 +65,9 @@ app.prepare().then(() => {
   server.use(router.routes());
 
   server.use(async (ctx, next) => {
+    //@ts-ignore
     if (ctx.session)
+     //@ts-ignore
       ctx.req["session"] = ctx.session;
     await handle(ctx.req, ctx.res);
     ctx.respond = false;
