@@ -12,10 +12,9 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowJs": true,
-    "strict": false,
+    "allowJs": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true
   },
