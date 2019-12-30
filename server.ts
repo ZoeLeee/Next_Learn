@@ -44,7 +44,8 @@ app.prepare().then(() => {
     if (ctx.session)
     //@ts-ignore
       ctx.req["userInfo"] = ctx.session.userInfo;
-    const id = ctx.params.id
+    const id = ctx.params.id;
+    //@ts-ignore
     await handle(ctx.req, ctx.res, {
       pathname: '/a',
       query: { id },
@@ -53,6 +54,7 @@ app.prepare().then(() => {
   });
   router.get("/b/:id", async (ctx, next) => {
     let id = ctx.params.id;
+    //@ts-ignore
     await handle(ctx.req, ctx.res, {
       pathname: "/b",
       query: { id }
