@@ -40,7 +40,9 @@ app.prepare().then(() => {
   api(server);
   let router = new Router();
   router.get('/a/:id', async (ctx, next) => {
+    //@ts-ignore
     if (ctx.session)
+    //@ts-ignore
       ctx.req["userInfo"] = ctx.session.userInfo;
     const id = ctx.params.id
     await handle(ctx.req, ctx.res, {
