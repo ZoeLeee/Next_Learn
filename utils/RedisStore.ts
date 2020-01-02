@@ -1,6 +1,5 @@
 import { Redis } from 'ioredis';
 import { Session, opts } from 'koa-session';
-import e from 'express';
 
 export class RedisStore {
   constructor(private _client: Redis) { }
