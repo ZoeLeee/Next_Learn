@@ -1,3 +1,4 @@
+import React from 'react';
 import App from 'next/app'
 import 'antd/dist/antd.less'
 import Layout from '../components/Layout'
