@@ -1,22 +1,21 @@
 {
   "apps" : [{
     "name"      : "learnNext",
-    "script"    : "./server.ts",
-    "interpreter": "ts-node",
+    "script"    : "ts-node",
+    "args": " --project ./tsconfig2.json server.ts",
     "env": {
-      "COMMON_VARIABLE": "true",
+      "COMMON_VARIABLE": "true"
     },
     "env_production" : {
       "NODE_ENV": "production",
-      "HOST":"localhost",
-      "project":"./tsconfig2.json"
+      "HOST":"localhost"
     }
   }],
   "deploy" : {
     "production" : {
       "user" : "ubuntu",
       "host" : "122.51.246.156",
-      "ref"  : "origin/master",
+      "ref"  : "origin/dev",
       "repo" : "git@github.com:ZoeLeee/Next_Learn.git",
       "path" : "/var/www/html/learn/learn_next",
       "ssh_options": "StrictHostKeyChecking=no",
