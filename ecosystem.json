@@ -2,7 +2,7 @@
   "apps" : [{
     "name"      : "learnNext",
     "script"    : "./server.ts",
-    "interpreter": "./node_modules/pm2/node_modules/.bin/ts-node",
+    "interpreter": "ts-node",
     "env": {
       "COMMON_VARIABLE": "true",
     },
