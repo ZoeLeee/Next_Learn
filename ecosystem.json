@@ -2,14 +2,14 @@
   "apps" : [{
     "name"      : "learnNext",
     "script"    : "./server.ts",
-    "interpreter": "ts-node",
+    "interpreter": "./node_modules/pm2/node_modules/.bin/ts-node",
     "env": {
       "COMMON_VARIABLE": "true",
-      "project":"./tsconfig2.json"
     },
     "env_production" : {
       "NODE_ENV": "production",
-      "HOST":"localhost"
+      "HOST":"localhost",
+      "project":"./tsconfig2.json"
     }
   }],
   "deploy" : {
