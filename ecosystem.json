@@ -1,9 +1,11 @@
 {
   "apps" : [{
     "name"      : "learnNext",
-    "script"    : "server.ts",
+    "script"    : "./server.ts",
+    "interpreter": "ts-node",
     "env": {
-      "COMMON_VARIABLE": "true"
+      "COMMON_VARIABLE": "true",
+      "project":"./tsconfig2.json"
     },
     "env_production" : {
       "NODE_ENV": "production",
