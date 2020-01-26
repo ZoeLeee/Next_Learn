@@ -16,7 +16,9 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = new Koa();
   server.keys = ['learn next'];
-  let store = new RedisStore(new Redis());
+  let store = new RedisStore(new Redis(6379,"www.dodream.wang",{
+    password:"lz901021"
+  }));
 
   const CONFIG = {
     key: 'session_id', /** (string) cookie key (default is koa:sess) */

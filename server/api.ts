@@ -13,7 +13,7 @@ export default (server: Koa) => {
         const result = await Axios({
           url: githubPath,
           data:{
-            access_token:token.access_token||"",
+            access_token:token?.access_token||"",
             ...body
           }
         });
