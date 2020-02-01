@@ -1,7 +1,5 @@
 const GITEE_OAUTH_URL="https://gitee.com/oauth/authorize";
-const SCOPE="user";
 const Client_Id="acbe75829e6989f6ed3cf79bce6eaaad19c170a02ea9a24c0b3c088f20118576";
-
 export default {
   github: {
     TokenURL:"https://gitee.com/oauth/token",

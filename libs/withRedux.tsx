@@ -3,13 +3,12 @@ import { initStore } from './../store/store';
 import { Store } from 'redux';
 import { IAppProps } from '../pages-test/_app';
 import { IInitState } from '../reducers';
-
-const isServer = typeof window === 'undefined';
+import { isServer } from './../utils/utils';
 
 const _NEXT_REDUX_STORE_ = '_NEXT_REDUX_STORE_';
 
 function getOrCreateStore(initState: IInitState = { userInfo: {} }): Store {
-  if (isServer)
+  if (isServer())
     return initStore(initState);
 
   if (!window[_NEXT_REDUX_STORE_])

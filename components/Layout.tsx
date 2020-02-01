@@ -12,9 +12,8 @@ const { Header, Content, Footer } = Layout;
 const IconStyle: React.CSSProperties = {
   fontSize: 30,
   marginRight: 10,
+  color: "#fff"
 }
-
-
 const MyLayout = ({ children, userInfo, loginOut, router }) => {
 
   const handleLoginOut = useCallback(
@@ -31,12 +30,14 @@ const MyLayout = ({ children, userInfo, loginOut, router }) => {
       </Menu.Item>
     </Menu>
   );
-  const [searchStr, setSearchStr] = useState()
-  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const [searchStr, setSearchStr] = useState();
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchStr(e.target.value);
-    router.push(`/search?q=${e.target.value}`)
   }, [searchStr, setSearchStr]);
 
+  const handleOnSearch = useCallback(() => {
+    router.push(`/search?q=${searchStr}`)
+  }, [searchStr])
   return (
     <Layout >
 
@@ -44,10 +45,11 @@ const MyLayout = ({ children, userInfo, loginOut, router }) => {
         <Container render={<div className="flex-between"></div>}>
           <>
             <div className="logo flex">
-              <Icon type="github" style={IconStyle} />
+              <a href="/" style={IconStyle} ><Icon type="github" /></a>
               <Input.Search
                 value={searchStr}
-                onChange={handleSearch}
+                onChange={handleChange}
+                onSearch={handleOnSearch}
                 placeholder="输入关键词" />
             </div>
             <div>

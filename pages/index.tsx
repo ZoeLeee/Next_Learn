@@ -7,6 +7,7 @@ import { withRouter } from 'next/router';
 import { IAppProps } from './_App';
 import { req } from '../libs/Request';
 import { List, Avatar } from 'antd';
+import { RepoList } from './../components/RepoList';
 
 const { publicRuntimeConfig } = getConfig();
 const { TabPane } = Tabs;
@@ -40,66 +41,17 @@ const Index = ({ userInfo, router, repos, starRepos }: IAppProps) => {
         <p>{userInfo.name}</p>
         <p></p>
       </div>
-      <Tabs style={{flex:1}} defaultActiveKey={key} onChange={() => { }}>
+      <Tabs style={{ flex: 1 }} defaultActiveKey={key} onChange={() => { }}>
         <TabPane tab="你的仓库" key="1">
-          <ul className="repo-list">
-            {
-              repos && repos.map((repo) => {
-                return <li key={repo.id}>
-                  <div style={{ width: "70%" }}>
-                    <a style={{ fontSize: 20, color: "#40a9ff" }}>
-                      {repo.full_name}
-                    </a>
-                    <div style={{ width: "70%" }}>
-                      {
-
-                      }
-                    </div>
-
-                  </div>
-                  <div style={{ flex: 1, textAlign: "right" }}>{repo.language}</div>
-                  <div style={{ flex: 1, textAlign: "right" }}>{repo.stargazers_count}</div>
-                </li>
-              })
-            }
-          </ul>
+          <RepoList data={repos || []} />
         </TabPane>
         <TabPane tab="你关注的仓库" key="2">
-          <ul className="repo-list">
-            {
-              starRepos && starRepos.map((repo) => {
-                return <li key={repo.id}>
-                  <div style={{ width: "70%" }}>
-                    <a style={{ fontSize: 20, color: "#40a9ff" }}>
-                      {repo.full_name}
-                    </a>
-                    <div style={{ width: "70%" }}>
-                      {
-                        repo.description
-                      }
-                    </div>
-
-                  </div>
-                  <div style={{ flex: 1, textAlign: "right" }}>{repo.language}</div>
-                  <div style={{ flex: 1, textAlign: "right" }}>{repo.stargazers_count}</div>
-                </li>
-              })
-            }
-          </ul>
+          <RepoList data={starRepos || []} />
         </TabPane>
       </Tabs>
       <style jsx>{`
         .root{
           display:flex;
-        }
-        .repo-list{
-          list-style: none;
-        }
-        .repo-list>li{
-          display:flex;
-          border-bottom: 1px solid #DCE3E8;
-          height:100px;
-          padding:10px 0;
         }
       `}</style>
     </div>
