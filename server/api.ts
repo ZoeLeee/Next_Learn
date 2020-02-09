@@ -8,24 +8,27 @@ export default (server: Koa) => {
       const githubAuth = ctx.session.githubAuth;
       const githubPath = `${GITHUB_API_URL}${ctx.url.replace("/github/", "/")}`;
       const token = githubAuth?.access_token;
-      let body=ctx.request.body||{}
+      let body = ctx.request.body || {}
       try {
         const result = await Axios({
           url: githubPath,
-          data:{
-            access_token:token?.access_token||"",
+          data: {
+            access_token: token?.access_token || "",
             ...body
           }
         });
         if (result.status === 200) {
           ctx.body = result.data;
-          ctx.set("Content-Type", "application/json");
+          for (let k in result.headers) {
+            ctx.set(k, result.headers[k])
+          }
         }
         else {
           ctx.status = result.status;
           ctx.body = result.data;
-          ctx.set("Content-Type", "application/json");
+          ctx.headers = result.headers;
         }
+        ctx.set("Content-Type", "application/json");
       }
       catch (err) {
         ctx.body = err;

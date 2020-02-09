@@ -36,7 +36,7 @@ const MyLayout = ({ children, userInfo, loginOut, router }) => {
   }, [searchStr, setSearchStr]);
 
   const handleOnSearch = useCallback(() => {
-    router.push(`/search?q=${searchStr}`)
+    router.push(`/search?q=${searchStr}&page=1&per_page=20&order=desc`)
   }, [searchStr])
   return (
     <Layout >

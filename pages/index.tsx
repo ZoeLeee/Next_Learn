@@ -6,10 +6,8 @@ import { Tabs, Button } from 'antd';
 import { withRouter } from 'next/router';
 import { IAppProps } from './_App';
 import { req } from '../libs/Request';
-import { List, Avatar } from 'antd';
 import { RepoList } from './../components/RepoList';
 
-const { publicRuntimeConfig } = getConfig();
 const { TabPane } = Tabs;
 
 const Index = ({ userInfo, router, repos, starRepos }: IAppProps) => {

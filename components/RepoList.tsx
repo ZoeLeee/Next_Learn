@@ -15,7 +15,7 @@ export class RepoList extends Component<Props, {}> {
                 <a style={{ fontSize: 20, color: "#40a9ff" }}>
                   {repo.full_name}
                 </a>
-                <div style={{ width: "70%" }}>
+                <div style={{ width: "70%",height:"50%",overflow:"hidden" }} title={repo.description}>
                   {
                     repo.description
                   }
